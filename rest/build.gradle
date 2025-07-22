@@ -8,4 +8,8 @@ dependencies {
     implementation "com.netflix.runtime:health-api:${revHealth}"
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${revSpringDoc}"
+
+    //new
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    implementation 'com.google.guava:guava:33.4.8-jre'
 }

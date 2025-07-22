@@ -159,3 +159,53 @@ If you would like to participate in the roadmap and development, [please reach o
 - - -
 # License
 Conductor is licensed under the [Apache 2.0 License ©](LICENSE)
+
+# How to run this project
+
+# 1) Clone main branch or download zip of the project.
+# 2) Sandesh.Patil@AELPT-0997 MINGW64 ~/IdeaProjects/conductor-main
+   $ ./gradlew conductor-server:clean conductor-server:build -x test
+
+# 3) create config-postgres.properties file in server folder and paste following
+
+# --- Persistence & Queues on Postgres only ---
+conductor.db.type=postgres
+conductor.queue.type=postgres
+
+# --- Disable Elasticsearch entirely ---
+conductor.indexing.enabled=true
+conductor.indexing.type=postgres
+conductor.elasticsearch.version=0
+
+# --- Point to your local Postgres instance ---
+spring.datasource.url=jdbc:postgresql://localhost:5432/conductor
+spring.datasource.username=postgres
+spring.datasource.password=Admin@123
+
+# (Optional) store large payloads in Postgres too:
+conductor.external-payload-storage.type=postgres
+
+# (Optional) enable Prometheus metrics:
+conductor.metrics-prometheus.enabled=true
+management.endpoints.web.exposure.include=prometheus
+
+# (Optional) load the sample “kitchen-sink” workflow on first run:
+loadSample=true
+
+# 1) Turn OFF Datadog explicitly:
+management.metrics.export.datadog.enabled=false
+management.datadog.metrics.export.enabled=false
+
+# 2) (Optional) Disable ALL non‑Prometheus registries by default,
+#    then re‑enable only what you need (Prometheus above):
+management.defaults.metrics.export.enabled=false
+
+conductor.app.workflow.name-validation.enabled=false
+
+
+# hit the following command 
+3)run --- java -jar build/libs/conductor-server-boot.jar   --spring.config.location=file:config-postgres.properties
+
+Sandesh.Patil@AELPT-0997 MINGW64 ~/IdeaProjects/conductor-main/server
+$ java -jar build/libs/conductor-server-boot.jar --spring.config.location=file:config-postgres.properties
+
